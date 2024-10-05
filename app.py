@@ -15,7 +15,7 @@ from myjd import (
 from scraper import fetch_page
 import random
 import string
-from upload import switch_upload
+from upload import switch_upload,upload_thumb
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -53,9 +53,9 @@ async def process_file(url,directory_path):
                 # Generate the thumbnail
                 gen_thumb(file_path, thumbnail_name)
                 logging.info(f"Thumbnail generated: {thumbnail_name}")
-
+                img = await upload_thumb(thumbnail_name)
                 msg = await switch_upload(file_path,thumbnail_name)
-                document = {"URL":url,"Video":msg.media_link}
+                document = {"URL":url,"Video":msg.media_link,"Image":img.media_link}
                 insert_document(db, collection_name, document)
                 # Remove the original file
                 if os.path.exists(file_path):
