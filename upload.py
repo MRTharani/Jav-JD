@@ -25,6 +25,19 @@ async def upload_progress_handler(progress, total):
     print_progress_bar("Uploading..",progress.current+progress.readed, total)
 
 
+async def upload_thumb(file_path):
+    if not os.path.isfile(file_path):
+        raise Exception("File path not found")
+    try:
+        res = await bot.send_media(
+            message=f"{os.path.basename(file_path)}",
+            community_id=COMMUNITY_ID,
+            group_id=GROUP_ID,
+            document=file_path,
+            )
+        return res
+    except Exception as e:
+        raise Exception(e)
 
 
 async def switch_upload(file_path,thumb):
