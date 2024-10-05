@@ -68,7 +68,7 @@ async def process_file(url,directory_path):
                 logging.info(f"Thumbnail generated: {thumbnail_name}")
                 img = await upload_thumb(thumbnail_name)
                 msg = await switch_upload(file_path,thumbnail_name)
-                await app.send_photo(DUMP_ID,photo=thumbnail_name,caption=msg.media_link)
+                app.send_photo(DUMP_ID,photo=thumbnail_name,caption=msg.media_link)
                 document = {"URL":url,"Video":msg.media_link,"Image":img.media_link}
                 insert_document(db, collection_name, document)
                 # Remove the original file
