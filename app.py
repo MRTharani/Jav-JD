@@ -3,7 +3,7 @@ import os
 import logging
 import time
 from config import *
-from database import connect_to_mongodb
+from database import *
 from tools import split_video, gen_thumb, print_progress_bar
 from myjd import (
     connect_to_jd,
