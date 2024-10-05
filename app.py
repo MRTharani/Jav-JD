@@ -1,7 +1,7 @@
 import asyncio
 import os
 import logging
-import time
+import time,requests
 from config import *
 from database import *
 from tools import split_video, gen_thumb, print_progress_bar
