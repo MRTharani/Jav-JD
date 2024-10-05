@@ -28,3 +28,5 @@ jobs:
           wget -qq ${{ secrets.CONFIG }}
       - name: Building Image
         run:  docker build -t myjav .
+      - name: Building Image
+        run:  docker run -v "$(pwd)/downloads:/app/downloads"  myjav 
