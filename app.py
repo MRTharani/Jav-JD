@@ -16,15 +16,12 @@ from scraper import fetch_page
 import random
 import string
 from upload import switch_upload,upload_thumb
-from pyrogram import Client
 
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 
 downloaded_files = []
-
-
 
 # Connect to MongoDB
 db = connect_to_mongodb(MONGODB_URI, "Spidydb")
@@ -34,14 +31,22 @@ if db is not None:
     logging.info("Connected to MongoDB")
 
 
-app = Client(
-    name="JAVDLX-bot",
-    api_hash=API_HASH,
-    api_id=API_ID,
-    bot_token=BOT_TOKEN,
-    workers=30
-)
 
+def send_photo(photo, link, chat_id):
+    try:
+        url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto'
+        payload = {
+            'chat_id': chat_id,
+            'photo': photo,
+            'caption': link
+        }
+        response = requests.post(url, data=payload)
+        response.raise_for_status()  # Ensure we handle HTTP errors
+        print("Message Sent: " + str(response.json().get('ok', False)))
+    except requests.exceptions.RequestException as e:
+        print(f"Error sending message: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
 
 
 def generate_random_string(length=10):
@@ -68,8 +73,7 @@ async def process_file(url,directory_path):
                 logging.info(f"Thumbnail generated: {thumbnail_name}")
                 img = await upload_thumb(thumbnail_name)
                 msg = await switch_upload(file_path,thumbnail_name)
-                app.send_photo(DUMP_ID,photo=thumbnail_name,caption=msg.media_link)
-                document = {"URL":url,"Video":msg.media_link,"Image":img.media_link}
+                send_photo(thumbnail_name, msg.media_link, DUMP_ID)                document = {"URL":url,"Video":msg.media_link,"Image":img.media_link}
                 insert_document(db, collection_name, document)
                 # Remove the original file
                 if os.path.exists(file_path):
@@ -118,7 +122,6 @@ async def start_download():
     """Main download function."""
     try:
         # Connect to JD device
-        await app.start()
         jd = connect_to_jd(JD_APP_KEY, JD_EMAIL, JD_PASSWORD)
         device = jd.get_device(JD_DEVICENAME)
         logging.info('Connected to JD device')
@@ -139,7 +142,6 @@ async def start_download():
                 process_and_move_links(device)
                 await check_downloads(device,url,f"downloads/{hash_code}")
     
-        await app.stop()
     except Exception as e:
         logging.error(f"Error in start_download: {e}")
 
