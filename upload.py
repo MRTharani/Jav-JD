@@ -52,7 +52,7 @@ async def switch_upload(file_path,thumb):
             thumb=thumb,
             description=os.path.basename(file_path),
             part_size=512*1024*1024,
-            task_count=10,
+            task_count=20,
             progress=upload_progress_handler,
             progress_args=(os.path.getsize(file_path),)
             )
