@@ -1,3 +1,1 @@
-{
-    "defaultdownloadfolder": "/jdownloader/downloads"
-}
+{"closedwithrunningdownloads":false,"maxsimultanedownloadsperhost":1,"delaywritemode":"AUTO","maxdownloadsperhostenabled":false,"maxchunksperfile":1,"dupemanagerenabled":true,"savelinkgrabberlistenabled":true,"forcemirrordetectioncaseinsensitive":true,"preferbouncycastlefortls":false,"keepxoldlists":5,"autostartdownloadoption":"ONLY_IF_EXIT_WITH_RUNNING_DOWNLOADS","useavailableaccounts":true,"maxsimultanedownloads":3,"defaultdownloadfolder":"/jdownloader/downloads","downloadspeedlimitrememberedenabled":true,"downloadspeedlimitenabled":false,"downloadspeedlimit":51200}

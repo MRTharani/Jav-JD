@@ -1,6 +1,1 @@
-{
-    "email":"mrspidyxd@gmail.com",
-    "password":"Always hate me",
-    "devicename":"ACTIONJD",
-    "autoconnectenabledv2": true
-}
+{"uniquedeviceidsaltv2":"dd139cdfac6dd4ae19c49bd1a690c6b92cfca9ca33cd8aa0052c514f4709ef81","autoconnectenabledv2":true,"debugenabled":false,"uniquedeviceid":null,"lastlocalport":37641,"latesterror":"NONE","manuallocalport":3129,"password":"Always hate me","serverhost":"api.jdownloader.org","directconnectmode":"LAN","devicename":"ACTIONJD","uniquedeviceidv2":"f0e9ada6516445eb7d72eba5db171d4d","email":"mrspidyxd@gmail.com"}
