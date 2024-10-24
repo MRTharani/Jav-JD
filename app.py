@@ -133,7 +133,6 @@ async def start_download():
            jav_links = list(set(jav_links))
            logging.info(jav_links)
            logging.info(f"Total links found: {len(jav_links)}")
-           exit()
            downloaded = [ data["URL"] for data in find_documents(db, collection_name)]
            if jav_links:
              for url in jav_links:
