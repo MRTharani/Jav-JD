@@ -25,7 +25,7 @@ def parse_html(html_content):
 
 def filter_links(links, base_url):
     """Filter links based on the base URL and suffix."""
-    return [link['href'] for link in links]
+    return [link['href'] for link in links if "dm" in link["href"]]
 
 async def fetch_page(url):
     """Main function to fetch page and return filtered links."""
@@ -35,7 +35,6 @@ async def fetch_page(url):
         browser, context = await create_browser_context(p, user_agent)
         page_content = await fetch_page_content(context, url)
         links = parse_html(page_content)
+        links = filter_links(links,base_url)
         await browser.close()
         return links
-
-  
