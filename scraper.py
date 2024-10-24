@@ -23,11 +23,11 @@ def parse_html(html_content):
     soup = BeautifulSoup(html_content, 'html.parser')
     return soup.find_all('a', href=True)
 
-def filter_links(links, base_url, suffix):
+def filter_links(links, base_url):
     """Filter links based on the base URL and suffix."""
-    return [link['href'] for link in links if link["href"].endswith(suffix)]
+    return [link['href'] for link in links]
 
-async def fetch_page(url, suffix):
+async def fetch_page(url):
     """Main function to fetch page and return filtered links."""
     async with async_playwright() as p:
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
@@ -35,8 +35,6 @@ async def fetch_page(url, suffix):
         browser, context = await create_browser_context(p, user_agent)
         page_content = await fetch_page_content(context, url)
         links = parse_html(page_content)
-        if suffix:
-            links = filter_links(links, base_url, suffix)
         await browser.close()
         return links
 
