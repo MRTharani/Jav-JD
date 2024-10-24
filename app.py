@@ -127,15 +127,14 @@ async def start_download():
         device = jd.get_device(JD_DEVICENAME)
         logging.info('Connected to JD device')
         clear_downloads(device)
-
-        url = "https://missav.com/dm559/en/uncensored-leak"
-        suffix = "-uncensored-leak"
-        jav_links = await fetch_page(url, suffix)
-        jav_links = list(set(jav_links))
-        logging.info(f"Total links found: {len(jav_links)}")
-        downloaded = [ data["URL"] for data in find_documents(db, collection_name)]
-        if jav_links:
-            for url in jav_links:
+        urls = ["https://missav.com/dm559/en/uncensored-leak","https://missav.com/dm513/en/new","https://missav.com/dm242/en/today-hot"]
+        for url in urls
+           jav_links = await fetch_page(url)
+           jav_links = list(set(jav_links))
+           logging.info(f"Total links found: {len(jav_links)}")
+           downloaded = [ data["URL"] for data in find_documents(db, collection_name)]
+           if jav_links:
+             for url in jav_links:
               if url not in downloaded:
                 hash_code = generate_random_string(5)
                 response = add_links(device, url, "JAV",hash_code)
